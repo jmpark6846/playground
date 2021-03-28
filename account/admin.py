@@ -9,7 +9,7 @@ class UserAdmin(admin.ModelAdmin):
         'email',
         'username',
         'is_staff',
-        'creation_date'
+        'created_at'
     )
 
     list_display_links = (
