@@ -1,8 +1,9 @@
 import uuid
 
 from django.db import models
+from django.utils import timezone
 
-# Create your models here.
+
 class BaseModel(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     created_at = models.DateTimeField('생성일자', auto_now_add=True)
@@ -15,3 +16,7 @@ class BaseModel(models.Model):
     @property
     def is_deleted(self):
         return self.deleted_at is not None
+
+    def delete(self, using=None, keep_parents=False):
+        self.deleted_at = timezone.now()
+        self.save()
