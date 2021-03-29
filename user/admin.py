@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import User
+from .models import User, UserProfile, WorkExperience
 
 
 @admin.register(User)
@@ -15,3 +15,11 @@ class UserAdmin(admin.ModelAdmin):
         'email',
         'username',
     )
+
+
+@admin.register(UserProfile)
+class UserProfileAdmin(admin.ModelAdmin):
+    list_display = ('user',)
+    list_display_links = ('user',)
+
+admin.site.register(WorkExperience)

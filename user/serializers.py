@@ -1,5 +1,5 @@
 from rest_framework.serializers import ModelSerializer
-from user.models import User
+from user.models import User, WorkExperience
 
 
 class UserSerializer(ModelSerializer):
@@ -7,3 +7,8 @@ class UserSerializer(ModelSerializer):
         model = User
         fields = '__all__'
 
+
+class WorkExpSerializer(ModelSerializer):
+    class Meta:
+        model = WorkExperience
+        fields = '__all__'
