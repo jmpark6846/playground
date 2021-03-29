@@ -46,6 +46,9 @@ INSTALLED_APPS = [
 
     'allauth',
     'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
+
     'rest_auth',
     'rest_auth.registration'
 
@@ -62,8 +65,19 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.SessionAuthentication',
     ]
 }
+
 REST_AUTH_SERIALIZERS = {
     'USER_DETAILS_SERIALIZER': 'account.serializers.UserSerializer'
+}
+
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        'APP': {
+            'client_id': os.getenv('SOCIALAUTH_GOOGLE_CLIENT_ID'),
+            'secret': os.getenv('SOCIALAUTH_GOOGLE_CLIENT_SECRETKEY'),
+            'key': ''
+        }
+    }
 }
 
 REST_USE_JWT = True
@@ -129,6 +143,12 @@ AUTHENTICATION_BACKENDS = [
 SITE_ID = 1
 
 AUTH_USER_MODEL = 'pg_account.User'
+
+# django-allauth
+ACCOUNT_USER_MODEL_USERNAME_FIELD = None
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators

@@ -6,13 +6,12 @@ class AuthenticationTests(APITestCase):
     @classmethod
     def setUpTestData(cls):
         data = {
+            'email': 'test@test.com',
             'username': 'test',
             'password1': 'test12#$',
             'password2': 'test12#$',
-            'email': 'test@test.com',
         }
         cls.data = data
-
 
     def test_registration_회원가입(self):
         response = self.client.post('/api/rest-auth/registration/', data=self.data)
@@ -27,9 +26,9 @@ class AuthenticationTests(APITestCase):
 
     def test_login_로그인(self):
         User.objects.create_user(
+            email=self.data['email'],
             username=self.data['username'],
             password=self.data['password1'],
-            email=self.data['email']
         )
         login_data = {
             'username': self.data['username'],
@@ -48,3 +47,4 @@ class AuthenticationTests(APITestCase):
         new_client.credentials(HTTP_AUTHORIZATION='JWT ' + token)
         response = new_client.get('/api/users/')
         self.assertEqual(response.status_code, 200)
+
