@@ -1,5 +1,5 @@
 from rest_framework.test import APITestCase, APIClient
-from account.models import User
+from user.models import User
 
 
 class AuthenticationTests(APITestCase):

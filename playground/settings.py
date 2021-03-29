@@ -42,8 +42,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
 
-    'account.apps.AccountConfig',
-
+    'user.apps.UserConfig',
+    
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
@@ -67,7 +67,7 @@ REST_FRAMEWORK = {
 }
 
 REST_AUTH_SERIALIZERS = {
-    'USER_DETAILS_SERIALIZER': 'account.serializers.UserSerializer'
+    'USER_DETAILS_SERIALIZER': 'user.serializers.UserSerializer'
 }
 
 SOCIALACCOUNT_PROVIDERS = {
@@ -142,7 +142,7 @@ AUTHENTICATION_BACKENDS = [
 
 SITE_ID = 1
 
-AUTH_USER_MODEL = 'pg_account.User'
+AUTH_USER_MODEL = 'user.User'
 
 # django-allauth
 ACCOUNT_USER_MODEL_USERNAME_FIELD = None

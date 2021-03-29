@@ -48,3 +48,7 @@ class User(BaseModel, AbstractBaseUser, PermissionsMixin):
     REQUIRED_FIELDS = ['username']
 
 
+class UserProfile(BaseModel):
+    user = models.ForeignKey('User', on_delete=models.DO_NOTHING, )
+    field = models.CharField(max_length=255)
+
