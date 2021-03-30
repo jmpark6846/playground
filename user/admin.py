@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import User, UserProfile, WorkExperience
+from .models import User, UserProfile
 
 
 @admin.register(User)
@@ -22,4 +22,3 @@ class UserProfileAdmin(admin.ModelAdmin):
     list_display = ('user',)
     list_display_links = ('user',)
 
-admin.site.register(WorkExperience)

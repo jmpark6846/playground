@@ -25,14 +25,6 @@ class UserManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
-    def create_user_with_profile(self, username, email=None, password=None, **extra_fields):
-        user = self.create_user(username, email, password)
-        user.profile = UserProfile.objects.create(
-            user=user,
-            field=""
-        )
-        return user
-
     def create_superuser(self, username, email=None, password=None, **extra_fields):
         user = self.create_user(
             email=self.normalize_email(email),
@@ -63,7 +55,7 @@ class UserProfile(BaseModel):
     user = models.OneToOneField(User,
                                 on_delete=models.DO_NOTHING,
                                 related_name='profile', )
-    field = models.CharField(max_length=255, null=True, blank=True)
+    field = models.CharField(max_length=140, null=True, blank=True)
 
 
 def save_profile(sender, instance, created, **kwargs):
@@ -73,14 +65,3 @@ def save_profile(sender, instance, created, **kwargs):
 
 
 post_save.connect(save_profile, sender=User)
-
-
-class WorkExperience(BaseModel):
-    profile = models.ForeignKey('UserProfile',
-                                on_delete=models.CASCADE,
-                                related_name='work_exps',
-                                related_query_name='work_exp')
-    company = models.CharField(max_length=100)
-    start_date = models.DateTimeField(null=False)
-    end_date = models.DateTimeField(null=True, blank=True)
-    description = models.TextField()

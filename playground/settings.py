@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
 
     'user.apps.UserConfig',
+    'company.apps.CompanyConfig',
     
     'allauth',
     'allauth.account',

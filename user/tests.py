@@ -54,28 +54,3 @@ class UserTestCase(APITestCase):
         new_client.credentials(HTTP_AUTHORIZATION='JWT ' + token)
         response = new_client.get('/api/users/')
         self.assertEqual(response.status_code, 200)
-
-    def test_work_experience_유저가_경력사항을_생성_조회한다(self):
-        user = User.objects.create_user(
-            email=self.data['email'],
-            username=self.data['username'],
-            password=self.data['password1'],
-        )
-
-        client = APIClient()
-        client.force_login(user)
-        data = {
-            'profile': user.profile.id,
-            'company': 'rocketpunch',
-            'start_date': timezone.now(),
-            'description': 'test description'
-        }
-        response = client.post('/api/work_exps/', data=data)
-        self.assertEqual(response.status_code, 201)
-
-        work_exp_dict = response.data
-        response = client.get(f'/api/work_exps/{work_exp_dict["id"]}/')
-
-        self.assertEqual(response.status_code, 200)
-        self.assertEqual(work_exp_dict['id'], response.data['id'])
-
